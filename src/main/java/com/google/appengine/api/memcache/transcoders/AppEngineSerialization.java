@@ -235,6 +235,20 @@ public class AppEngineSerialization {
     return new String(makePbKey(key), "UTF-8");
   }
 
+  /**
+   * Converts list of user's key Objects into list of UTF8 string representation for bulk request.
+   *
+   * @param keys
+   * @return list of hash result.
+   */
+  public static java.util.List<String> makeKeys(java.util.List<Object> keys) throws IOException {
+    java.util.List<String> newKeys = new java.util.ArrayList<>();
+    for (Object key : keys) {
+      newKeys.add(new String(makePbKey(key), "UTF-8"));
+    }
+    return newKeys;
+  }
+
   private static byte[] makePbKey(Object key) throws IOException {
     // Changes to this function must be replicated for getFormattedKey found in
     // google3/apphosting/client/admin_console/memcache_viewer/
