@@ -1,19 +1,19 @@
 package com.google.appengine.api.memcache.transcoders;
 
-import com.google.appengine.api.memcache.transcoders.AppEngineSerialization.Flag;
-import com.google.appengine.api.memcache.transcoders.AppEngineSerialization.ValueAndFlags;
+import com.google.appengine.api.memcache.MemcacheSerialization;
+import com.google.appengine.api.memcache.MemcacheSerialization.ValueAndFlags;
 import java.io.IOException;
 import net.spy.memcached.CachedData;
 import net.spy.memcached.transcoders.BaseSerializingTranscoder;
 import net.spy.memcached.transcoders.Transcoder;
 
 /**
- * 
+ * Spymemcached transcoder supports AppEngine Memcache compatible serialization.
  */
-public class AppEngineSerializingTranscoder extends BaseSerializingTranscoder implements
+public class SpymemcachedSerializingTranscoder extends BaseSerializingTranscoder implements
     Transcoder<Object> {
 
-  public AppEngineSerializingTranscoder() {
+  public SpymemcachedSerializingTranscoder() {
     super(CachedData.MAX_SIZE);
   }
 
@@ -29,7 +29,7 @@ public class AppEngineSerializingTranscoder extends BaseSerializingTranscoder im
    */
   public Object decode(CachedData d) {
     try {
-      return AppEngineSerialization.deserialize(d.getData(), d.getFlags());
+      return MemcacheSerialization.deserialize(d.getData(), d.getFlags());
     } catch (Exception e) {
       throw new TranscoderException(e);
     }
@@ -42,7 +42,7 @@ public class AppEngineSerializingTranscoder extends BaseSerializingTranscoder im
    */
   public CachedData encode(Object o) {
     try {
-      ValueAndFlags vaf = AppEngineSerialization.serialize(o);
+      ValueAndFlags vaf = MemcacheSerialization.serialize(o);
       return new CachedData(vaf.flags.ordinal(), vaf.value, getMaxSize());
     } catch (IOException e) {
       throw new TranscoderException(e);

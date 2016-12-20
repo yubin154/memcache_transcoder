@@ -1,7 +1,7 @@
 package com.google.appengine.api.memcache.transcoders;
 
 /**
- * 
+ * Checked Exception for transcoding failures.
  */
 public class TranscoderException extends RuntimeException {
 
