@@ -5,7 +5,7 @@ Transcoders that serialize Memcache values and keys compatible with AppEngine
 Memcache client. Allow accessing AppEngine Memcache through memcached client
 and maintain inter-operable with AppEngine Memcache Client.
 
-Build artifact in the local maven repository
+Build transcoder artifact in the local maven repository
 
     cd memcache_transcoder
     mvn clean install
@@ -27,8 +27,13 @@ Use the transcoder in spymemcached client
     servers.add(new InetSocketAddress("host", port));
     client = new MemcachedClient(cfb.build(), servers);
 
-GAE Java Memcache API allows Java object to be used as a key,
-com.google.appengine.api.memcache.transcoders.Serialization.makeKey and
-com.google.appengine.api.memcache.transcoders.Serialization.makeKeys can be used
-to in memcached to create GAE compatible keys from raw java object
+GAE Java Memcache API allows Java object to be used as key, memcached allows
+only string to be used as key.
+
+
+    com.google.appengine.api.memcache.transcoders.Serialization.makeKey
+    com.google.appengine.api.memcache.transcoders.Serialization.makeKeys
+    
+can be used to encode raw java object to string keys that are compatible with
+GAE Memcache API.
 
