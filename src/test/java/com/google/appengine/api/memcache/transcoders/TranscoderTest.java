@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.Map;
 import net.spy.memcached.CASResponse;
 import net.spy.memcached.CASValue;
+import org.junit.Ignore;
 import org.junit.Test;
 
-/** */
+/** Require a local memcached server, otherwise leave it ignored */
+@Ignore
 public final class TranscoderTest extends SpyMemcachedBaseTest {
 
   // Cannot test appengine memcache client standalone, enable if deploy as an appengine app.
@@ -22,22 +24,6 @@ public final class TranscoderTest extends SpyMemcachedBaseTest {
 
   public TranscoderTest() {
     super("127.0.0.1", 11211, "1.4.22", false);
-  }
-
-  public void testAll() throws Exception {
-    testStr();
-    testBoolean();
-    testInteger();
-    testLong();
-    testShort();
-    testByte();
-    testSerializableObject();
-    testBytes();
-    testIncrDecr();
-    testDelete();
-    testMultiKeySetGet();
-    testCas();
-    testNull();
   }
 
   @Test
@@ -71,6 +57,7 @@ public final class TranscoderTest extends SpyMemcachedBaseTest {
     checkValuesInBothClients("long min overflow", Long.MIN_VALUE - 1);
   }
 
+  @Test
   public void testShort() throws Exception {
     checkValuesInBothClients("short zero", new Short("0"));
     checkValuesInBothClients("short max", Short.MAX_VALUE);
