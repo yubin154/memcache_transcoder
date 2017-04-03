@@ -1,6 +1,13 @@
 # memcache_transcoder
 ===================================
 
+NOTE(rodrigo): this is a Google-developed library to allow compatibility of
+Memcache key serialization outside of AppEngine Memcache. The library doesn't
+live in any publicly available Maven repo, so we forked it here to install
+it in our own.
+
+---
+
 Transcoders that serialize Memcache values and keys compatible with AppEngine
 Memcache client. Allow accessing AppEngine Memcache through memcached client
 and maintain inter-operable with AppEngine Memcache Client.
